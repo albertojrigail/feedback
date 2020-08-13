@@ -71,14 +71,27 @@ $('.btn').click(function() {
         'memory_limit' : 262144
     };
 
-    $.post(url, data, function(data) {
-        console.log("post");
-        
-        let json = JSON.parse(JSON.stringify(data));
-        // status
+    let xhr = new XMLHttpRequest();
+    let json = JSON.stringify(data);
+    xhr.open("POST", url);
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    xhr.send(json);
+
+    xhr.onload = function() {
+        if (xhr.status != 200) { // HTTP error?
+          // handle error
+          alert( 'Error: ' + xhr.status);
+          return;
+        }
+      
+        // get the response from xhr.response
+        let json = JSON.parse(JSON.stringify(xhr.response));
+
+        // compile status
         compileStatus = json['compile_status'];
 
         if (compileStatus === 'OK') {
+            console.log("Compilation successful!");
             runStatus = json['run_status'];
 
             // outputs
@@ -91,8 +104,7 @@ $('.btn').click(function() {
             let timeUsed = runStatus['time_used'];
 
         } else {
-
+            console.log("Compilation unsuccessful");
         }
-
-    });
+    };
 });
