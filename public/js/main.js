@@ -75,6 +75,7 @@ $('.btn').click(function() {
     let json = JSON.stringify(data);
     xhr.open("POST", url);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    xhr.setRequestHeader('Access-Control-Allow-Origin', 'origin-list');
     xhr.send(json);
 
     xhr.onload = function() {
