@@ -56,56 +56,68 @@ if(searchParams.has('pid')) {
 }	
 
 // 3. Compiler
-const url = 'https://api.hackerearth.com/v3/code/run/';
-const client_secret = '4e2dcb22721612358088677edb732d3dedf4af8d';
+
 
 $('.btn').click(function() {
+    let json = await postData();
+    console.log(json);
+
+
     
-    const script = editor.getValue();
-    const data = {
-        'client_secret' : client_secret,
-        'async' : 0,
-        'source' : script,
-        'lang' : 'PYTHON',
-        'time_limit' : 5,
-        'memory_limit' : 262144
-    };
+    //     // get the response from xhr.response
+    //     let json = JSON.parse(JSON.stringify(xhr.response));
 
-    let xhr = new XMLHttpRequest();
-    let json = JSON.stringify(data);
-    xhr.open("POST", url);
-    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    xhr.setRequestHeader('Access-Control-Allow-Origin', 'origin-list');
-    xhr.send(json);
+    //     // compile status
+    //     compileStatus = json['compile_status'];
 
-    xhr.onload = function() {
-        if (xhr.status != 200) { // HTTP error?
-          // handle error
-          alert( 'Error: ' + xhr.status);
-          return;
-        }
-      
-        // get the response from xhr.response
-        let json = JSON.parse(JSON.stringify(xhr.response));
+    //     if (compileStatus === 'OK') {
+    //         console.log("Compilation successful!");
+    //         runStatus = json['run_status'];
 
-        // compile status
-        compileStatus = json['compile_status'];
+    //         // outputs
+    //         let stderr = runStatus['stderr'];
+    //         let sdtout = runStatus['output']
+    //         let outputHtml = runStatus['output_html'];
 
-        if (compileStatus === 'OK') {
-            console.log("Compilation successful!");
-            runStatus = json['run_status'];
+    //         // metrics
+    //         let memoryUsed = runStatus['memory_used'];
+    //         let timeUsed = runStatus['time_used'];
 
-            // outputs
-            let stderr = runStatus['stderr'];
-            let sdtout = runStatus['output']
-            let outputHtml = runStatus['output_html'];
-
-            // metrics
-            let memoryUsed = runStatus['memory_used'];
-            let timeUsed = runStatus['time_used'];
-
-        } else {
-            console.log("Compilation unsuccessful");
-        }
-    };
+    //     } else {
+    //         console.log("Compilation unsuccessful");
+    //     }
+    // };
 });
+
+// Example POST method implementation:
+async function postData() {
+    // constants
+    const url = 'https://api.hackerearth.com/v3/code/run/';
+    const clientSecret = '4e2dcb22721612358088677edb732d3dedf4af8d';
+
+    // form data
+    var formData = {
+        'client_secret': clientSecret,
+        'async': 0,
+        'source': "print('Hello, World!')",
+        'lang': 'PYTHON',
+        'time_limit': 5,
+        'memory_limit': 262144
+    };
+
+    // Default options are marked with *
+    const response = await fetch(url, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(formData) // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
