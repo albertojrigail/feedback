@@ -56,67 +56,38 @@ if(searchParams.has('pid')) {
 }	
 
 // 3. Compiler
+// output functions are configurable.  This one just appends some text
+// to a pre element.
+function outf(text) { 
+    var mypre = document.getElementById("output"); 
+    mypre.innerHTML = mypre.innerHTML + text; 
+} 
+function builtinRead(x) {
+    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+            throw "File not found: '" + x + "'";
+    return Sk.builtinFiles["files"][x];
+}
 
-
-$('.btn').click(function() {
-    postData();
-
-    
-    //     // get the response from xhr.response
-    //     let json = JSON.parse(JSON.stringify(xhr.response));
-
-    //     // compile status
-    //     compileStatus = json['compile_status'];
-
-    //     if (compileStatus === 'OK') {
-    //         console.log("Compilation successful!");
-    //         runStatus = json['run_status'];
-
-    //         // outputs
-    //         let stderr = runStatus['stderr'];
-    //         let sdtout = runStatus['output']
-    //         let outputHtml = runStatus['output_html'];
-
-    //         // metrics
-    //         let memoryUsed = runStatus['memory_used'];
-    //         let timeUsed = runStatus['time_used'];
-
-    //     } else {
-    //         console.log("Compilation unsuccessful");
-    //     }
-    // };
-});
-
-// Example POST method implementation:
-async function postData() {
-    // constants
-    const url = 'https://api.hackerearth.com/v3/code/run/';
-    const clientSecret = '4e2dcb22721612358088677edb732d3dedf4af8d';
-
-    // form data
-    var formData = {
-        'client_secret': clientSecret,
-        'async': 0,
-        'source': "print('Hello, World!')",
-        'lang': 'PYTHON',
-        'time_limit': 5,
-        'memory_limit': 262144
-    };
-
-    // Default options are marked with *
-    const response = await fetch(url, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(formData) // body data type must match "Content-Type" header
+// Here's everything you need to run a python program in skulpt
+// grab the code from your textarea
+// get a reference to your pre element for output
+// configure the output function
+// call Sk.importMainWithBody()
+function runit() { 
+    var prog = editor.getValue();
+    var mypre = document.getElementById("output"); 
+    mypre.innerHTML = ''; 
+    Sk.pre = "output";
+    Sk.configure({output:outf, read:builtinRead}); 
+    var myPromise = Sk.misceval.asyncToPromise(function() {
+        return Sk.importMainWithBody("<stdin>", false, prog, true);
     });
-    console.log(response.json());
-    return response.json(); // parses JSON response into native JavaScript objects
-  }
+    myPromise.then(function(mod) {
+        console.log('success');
+    },
+    
+    function(err) {
+        console.log(err.toString());
+        mypre.innerHTML = mypre.innerHTML + err.toString(); 
+    });
+} 
