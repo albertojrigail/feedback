@@ -5,28 +5,26 @@
 /     3. Code for compiling and running programs
 /*--------------------------------------------------------*/
 
+// global variables
+var editor= ace.edit('ace-editorid'); // code editor
+var searchParams = new URLSearchParams(window.location.search); // parameters
+var userId = ""; // user id
+
+
 // 1. Code editor configuration
 var theme='ace/theme/cobalt';
 var mode='ace/mode/python';
-var editor= ace.edit('ace-editorid');
 editor.setTheme(theme);
 editor.getSession().setMode(mode);
-
-// Set editor text
 var solution = '#---------------------------\n# Write your solution below\n';
 editor.session.setValue(solution);  
 
-
 // 2. Parameters configuration
-let searchParams = new URLSearchParams(window.location.search);
-
 // user id
-if (searchParams.has('uid')){
-    userId = searchParams.get('uid');
-    $('.greeting').text('Hey ' + userId + '!');
-} else $('.greeting').text('Hey Coder!');
-
-// problem
+if(searchParams.has('uid')) {
+    userId = searchParams.get('uid')
+}
+// problem id
 if(searchParams.has('pid')) {
     var problemId = searchParams.get('pid');
     $.get( 'http://34.96.245.124:2999/problem/' + problemId, function( data ) {
@@ -53,7 +51,7 @@ if(searchParams.has('pid')) {
         });
         editor.session.setValue(solution);
     });	
-}	
+}
 
 // 3. Compiler
 // output functions are configurable.  This one just appends some text
@@ -91,3 +89,31 @@ function runit() {
         mypre.innerHTML = mypre.innerHTML + err.toString(); 
     });
 } 
+
+// 4. Login configuration
+// run on start
+// First check if it's registered
+let name ="";
+let email = "";
+
+if(userId != "") {
+    $.get( 'http://34.96.245.124:2999/user/' + userId, function( data ) {
+        // need to register first
+        if (data == null) {
+            $('.greeting').text('Hey Coder!');
+            document.getElementById("login-section").style.display= "block";
+            document.getElementById("main-section").style.display= "none";
+        }
+        // already registered
+        else {
+            // Query data
+            let json = JSON.parse(JSON.stringify(data));
+            name = json["name"];
+            email = json["email"];
+            $('.greeting').text('Hey ' + name + '!');
+            $('.useremail').value(email);
+            document.getElementById("login-section").style.display= "none";
+            document.getElementById("main-section").style.display= "block";
+        }
+    });	
+}

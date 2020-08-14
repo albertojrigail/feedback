@@ -17,76 +17,102 @@
 		<script src="http://www.skulpt.org/js/skulpt-stdlib.js" type="text/javascript"></script> 
 	</head>
 	<body>
-
-		<!-- Greeting and Problem -->
+		<!-- Login -->
+		<div id="login-section">
 			<section id="one" class="wrapper">
 				<div class="inner">
 					<section>
 						<img src="/assets/nemo_bot_logo.png" style="height:150px;">
 						<br>
 						<br>
-						<!--To be modified by jQuery-->
-						<h2 class="greeting"> Hey!</h2>
-						<h2 class="title">Solve the Following Puzzle:</h2>
-						<div class="problem"></div>	
+						<h2>Hey Coder!</h2>
+						<h2>Before starting, please complete the following:</h2>
+						<form action="http://34.96.245.124:2999/user" method="POST">
+							<input type="hidden" id="userid">
+							<label for="username">Name:</label><br>
+							<input type="text" id="username" name="username"><br>
+							<label for="useremail">Last name:</label><br>
+							<input type="email" id="useremail" name="useremail">
+							<input type="submit" value="Submit">
+						</form>
+	
 					</section>
 				</div>
 			</section>
+		</div>
 
-			<section id="one" class="wrapper">
-				<div class="inner split">
-					<section>
-						<!--Code editor-->
-						<div class="editor-wrapper">
-							<code id="ace-editorid"></code>
-						</div>
-						<p class="lead">version: Python 2.6.<br>Check out this <a href="/pages/tutorial/tutorial.html" target="_blank">tutorial</a> for more information.</p>
-					</section>
-					<section>
-						<table>
-							<tr>
-								<th>
-									<h5>Stdout</h5>
-									<textarea readonly rows="7" placeholder="output" id="output" class="stdout"></textarea> 
-								</th>
-							</tr>
-						</table>
-						<table>
-							<tr>
-								<th>
-									<button type="button" onclick="runit()" style="background-color: rgb(0, 119, 255);" class="btn">
-										<p style="color:white;">run</p>
-									</button>
-								</th>
-								<th>
-									<button type="button" onclick="submit()" style="background-color: orangered" class="submit">
-										<p style="color:white;">Submit</p>
-									</button>
-								</th>
-							</tr>
-						</table>
-						<p class="lead">Your solution will be sent to the other user by email. <br/>Thanks for contributing to an amazing peer reviewed system! ⚡️🤝</p>
-					</section>
-				</div>
-			</section>
+		<div id="main-section">
+			<!-- Greeting and Problem -->
+				<section id="one" class="wrapper">
+					<div class="inner">
+						<section>
+							<img src="/assets/nemo_bot_logo.png" style="height:150px;">
+							<br>
+							<br>
+							<!--To be modified by jQuery-->
+							<h2 class="greeting"> Hey!</h2>
+							<h2 class="title">Solve the Following Puzzle:</h2>
+							<div class="problem"></div>	
+						</section>
+					</div>
+				</section>
+	
+				<section id="one" class="wrapper">
+					<div class="inner split">
+						<section>
+							<!--Code editor-->
+							<div class="editor-wrapper">
+								<code id="ace-editorid"></code>
+							</div>
+							<p class="lead">version: Python 2.6.<br>Check out this <a href="/pages/tutorial/tutorial.html" target="_blank">tutorial</a> for more information.</p>
+						</section>
+						<section>
+							<table>
+								<tr>
+									<th>
+										<h5>Stdout</h5>
+										<textarea readonly rows="7" placeholder="output" id="output" class="stdout"></textarea> 
+									</th>
+								</tr>
+							</table>
+							<table>
+								<tr>
+									<th>
+										<button type="button" onclick="runit()" style="background-color: rgb(0, 119, 255);" class="btn">
+											<p style="color:white;">run</p>
+										</button>
+									</th>
+									<th>
+										<button type="button" onclick="submit()" style="background-color: orangered" class="submit">
+											<p style="color:white;">Submit</p>
+										</button>
+									</th>
+								</tr>
+							</table>
+							<p class="lead">Your solution will be sent to the other user by email. <br/>Thanks for contributing to an amazing peer reviewed system! ⚡️🤝</p>
+						</section>
+					</div>
+				</section>
+	
+			<!-- Contact -->
+				<section id="contact" class="wrapper">
+					<div class="inner split">
+						<section>
+							<h2>Found Issues?</h2>
+							<p>Please email me to with any feedback on improving this program.<br>Thank you!</p>
+						</section>
+						<section>
+							<ul class="contact">
+								<li class="fa-linkedin"><a href="https://www.linkedin.com/in/albertojrigail/">linkedin.com/in/albertojrigail</a></li>
+								<li class="fa-envelope"><a href="mailto:ajrc@princeton.edu">ajrc@princeton.edu</a></li>
+								<li class="fa-home">Princeton University<br/>Princeton, NJ 08544</li>
+							</ul>
+						</section>
+					</div>
+					
+				</section>
+		</div>
 
-		<!-- Contact -->
-			<section id="contact" class="wrapper">
-				<div class="inner split">
-					<section>
-						<h2>Found Issues?</h2>
-						<p>Please email me to with any feedback on improving this program.<br>Thank you!</p>
-					</section>
-					<section>
-						<ul class="contact">
-							<li class="fa-linkedin"><a href="https://www.linkedin.com/in/albertojrigail/">linkedin.com/in/albertojrigail</a></li>
-							<li class="fa-envelope"><a href="mailto:ajrc@princeton.edu">ajrc@princeton.edu</a></li>
-							<li class="fa-home">Princeton University<br/>Princeton, NJ 08544</li>
-						</ul>
-					</section>
-				</div>
-				
-			</section>
 
 		<!-- Scripts -->
 			<!--Jquery-->
