@@ -6,6 +6,7 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1" />
     	<!--Bootstrap CSS-->    
 		<link rel="stylesheet" href="/css/main.css" />
+		
 		<!--Custom CSS-->
 		<link rel="stylesheet" href="/css/custom.css"/>
 		<script src="https://use.fontawesome.com/dd3d430700.js"></script>
@@ -16,6 +17,7 @@
 		<script src="http://www.skulpt.org/js/skulpt-stdlib.js" type="text/javascript"></script> 
 	</head>
 	<body>
+
 		<!-- Greeting and Problem -->
 			<section id="one" class="wrapper">
 				<div class="inner">
@@ -38,15 +40,9 @@
 						<div class="editor-wrapper">
 							<code id="ace-editorid"></code>
 						</div>
-						<p>version: Python 2.6</p>
+						<p class="lead">version: Python 2.6.<br>Check out this <a href="/pages/tutorial/tutorial.html" target="_blank">tutorial</a> for more information.</p>
 					</section>
 					<section>
-						<table>
-							<tr>
-								<th>Command-line arguments</th>
-								<th><input id="args"></th>
-							</tr>
-						</table>
 						<table>
 							<tr>
 								<th>
@@ -55,17 +51,21 @@
 								</th>
 							</tr>
 						</table>
-						<button type="button" onclick="runit()" style="background-color: rgb(0, 119, 255);" class="btn"><p style="color:white;">run</p></button>
-					</section>
-				</div>
-			</section>
-			
-			<!--Thank you section-->
-			<section id="one" class="wrapper">
-				<div class="inner">
-					<section>
-						<p class="lead">Your solution will be sent to the other user by email. <br/>
-							Thanks for contributing to an amazing peer reviewed system! ⚡️🤝</p>
+						<table>
+							<tr>
+								<th>
+									<button type="button" onclick="runit()" style="background-color: rgb(0, 119, 255);" class="btn">
+										<p style="color:white;">run</p>
+									</button>
+								</th>
+								<th>
+									<button type="button" onclick="submit()" style="background-color: orangered" class="submit">
+										<p style="color:white;">Submit</p>
+									</button>
+								</th>
+							</tr>
+						</table>
+						<p class="lead">Your solution will be sent to the other user by email. <br/>Thanks for contributing to an amazing peer reviewed system! ⚡️🤝</p>
 					</section>
 				</div>
 			</section>
@@ -75,7 +75,7 @@
 				<div class="inner split">
 					<section>
 						<h2>Found Issues?</h2>
-						<p>Please email me to with any feedback on improving this program. Thank you!</p>
+						<p>Please email me to with any feedback on improving this program.<br>Thank you!</p>
 					</section>
 					<section>
 						<ul class="contact">
