@@ -135,7 +135,7 @@ $('#myForm').submit(function(e){
 
 // submit solution
 function submitSolution() {
-    var solutionText = editor.getValue();
+    var solutionText = editor.session.getValue();
     var solutionList = solution.split('\n');
     data = {
         'email' : email,
