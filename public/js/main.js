@@ -133,7 +133,9 @@ function SubForm (){
         url: 'http://34.96.245.124:2999/user',
         type: 'post',
         data: JSON.stringify(user),
+        success: function() {
+            window.location.replace("http://34.96.245.124:2999/?uid" + userId + '&pid=' + problemId );
+        }
     });
-    window.location.replace("http://34.96.245.124:2999/?uid" + userId + '&pid=' + problemId );
 }
 
