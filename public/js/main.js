@@ -24,7 +24,8 @@ editor.session.setValue(solution);
 // 2. Parameters configuration
 // user id
 if(searchParams.has('uid')) {
-    userId = searchParams.get('uid')
+    userId = searchParams.get('uid');
+    document.getElementById('userid').value = userId;
 }
 // problem id
 if(searchParams.has('pid')) {
@@ -119,10 +120,3 @@ if(userId != "") {
             document.getElementById("main-section").style.display= "block";
         });
 }
-
-
-// On login button pressed: register user
-function register() {
-    
-}
-

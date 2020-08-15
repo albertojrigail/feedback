@@ -27,17 +27,22 @@
 						<br>
 						<h2>Hey Coder!</h2>
 						<h2>Before starting, please complete the following:</h2>
-						<table>
-							<tr>
-								<th><p>Name:</p></th>
-								<th><input id="username"></th>
-							</tr>
-							<tr>
-								<th><p>Email:</p></th>
-								<th><input id="useremail"></th>
-							</tr>
-						</table>
-						<button onclick="register();" style="background-color: rgb(0, 119, 255);color:white;">Register</button>
+						<form action="http://34.96.245.124:2999/user" method="POST">
+							<input id="userid" type="hidden">
+							<table>
+								<tr>
+									<th><label for="name">Name:</label></th>
+									<th><input type="text" id="name" name="name" required></th>
+								</tr>
+								<tr>
+									<th><label for="email">Email:</label></th>
+									<th><input id="email" name="email" type="text" required></th>
+								</tr>
+							</table>
+							<button type="submit" style="background-color: rgb(0, 119, 255);">
+								<p style="color:white;">Register</p>
+							</button>
+						</form>
 					</section>
 				</div>
 			</section>
