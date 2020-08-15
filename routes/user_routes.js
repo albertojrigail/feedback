@@ -13,11 +13,15 @@ module.exports = function(app, db) {
 
     // post user
     app.post('/user', (req, res) => {
+        console.log(req.body);
         const user = {
             name: req.body.name,
             id: req.body.id,
             email: req.body.email,
         }
+        console.log(user.name);
+        console.log(user.id);
+        console.log(user.email);
         db.collection('user').insertOne(user, (err, result) => {
             if(err) {
                 res.send({'Error': 'An error has occurred'});
