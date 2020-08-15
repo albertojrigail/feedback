@@ -128,8 +128,7 @@ $('#myForm').submit(function(e){
         type:'post',
         data:$('#myForm').serialize(),
         success:function(){
-            //whatever you wanna do after the form is successfully submitted
-            console.log("Success!!!")
+            window.location.replace("http://34.96.245.124:2999/?uid=" + userId + "&pid=" + problemId);
         }
     });
 });
