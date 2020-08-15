@@ -124,7 +124,7 @@ if(userId != "") {
 // On login button pressed: register user
 function register() {
     name = document.getElementById("name").value;
-    email = document.getElementById("useremail").value;
+    email = document.getElementById("email").value;
     if(userId != "") {
         var user = {
             "name" : name,
