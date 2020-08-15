@@ -25,7 +25,7 @@ editor.session.setValue(solution);
 // user id
 if(searchParams.has('uid')) {
     userId = searchParams.get('uid');
-    document.getElementById('userid').value = userId;
+    document.getElementById('id').value = userId;
 }
 // problem id
 if(searchParams.has('pid')) {
