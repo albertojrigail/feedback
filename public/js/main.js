@@ -98,14 +98,14 @@ function runit() {
 if(userId != "") {
     $.get( 'http://34.96.245.124:2999/user/' + userId, function(data ) {
         // need to register first
-        if (data == null) {
+        let json = JSON.parse(JSON.stringify(data));
+        if (json ==="") {
             document.getElementById("login-section").style.display= "block";
             document.getElementById("main-section").style.display= "none";
         }
         // already registered
         else {
             // Query data
-            let json = JSON.parse(JSON.stringify(data));
             name = json["name"];
             email = json["email"];
             $('.greeting').text('Hey ' + name + '!');
