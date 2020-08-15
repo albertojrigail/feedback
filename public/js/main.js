@@ -139,12 +139,12 @@ function submitSolution() {
     var solutionList = solution.split('\n');
     data = {
         'email' : email,
-        'id' : userId,
+        'uid' : userId,
         'pid' : problemId,
         'solution' : solutionList,
     }
     $.ajax({
-        url:'/user',
+        url:'/solution',
         type:'post',
         data: data,
         success:function(){

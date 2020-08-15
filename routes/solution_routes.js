@@ -6,9 +6,10 @@ module.exports = function(app, db) {
     // POST (pass arguments in 'body')
     app.post('/solution', (req, res) => {
         const feedback = {
-            user: req.body.user,
-            title: req.body.title,
-            text: req.body.body,
+            email: req.body.email,
+            pid: req.body.pid,
+            uid: req.body.uid,
+            solution: req.body.solution,
         }
         db.collection('solution').insertOne(feedback, (err, result) => {
             if(err) {
