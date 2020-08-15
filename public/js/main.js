@@ -147,7 +147,7 @@ function submitSolution() {
         type:'post',
         data: data,
         success:function(){
-            window.location.replace("http://34.96.245.124:2999/pages/tutorial/tutorial.html");
+            window.location.replace("http://34.96.245.124:2999/pages/feedback/feedback.html");
         }
     });
 }
