@@ -6,7 +6,6 @@ module.exports = function(app, db) {
     // POST (pass arguments in 'body')
     app.post('/solution', (req, res) => {
         const feedback = {
-            email: req.body.email,
             pid: req.body.pid,
             uid: req.body.uid,
             solution: req.body.solution,

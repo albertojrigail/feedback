@@ -138,7 +138,6 @@ function submitSolution() {
     var solutionText = editor.session.getValue();
     var solutionList = solutionText.split('\n');
     data = {
-        'email' : email,
         'uid' : userId,
         'pid' : problemId,
         'solution' : solutionList,
