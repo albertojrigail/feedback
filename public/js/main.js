@@ -25,6 +25,7 @@ editor.session.setValue(solution);
 // user id
 if(searchParams.has('uid')) {
     userId = searchParams.get('uid');
+    document.getElementById('userid').value = userId;
 }
 // problem id
 if(searchParams.has('pid')) {
@@ -120,29 +121,17 @@ if(userId != "") {
         });
 }
 
-
-// On login button pressed: register user
-function register() {
-    name = document.getElementById("name").value;
-    email = document.getElementById("email").value;
-    if(userId != "") {
-        var user = {
-            "name" : name,
-            "email": email,
-            "id"   : userId,
-        }
-        $.post('http://34.96.245.124:2999/user', user, function(data) {
-            let json = JSON.parse(JSON.stringify(data));
-            name = json["name"];
-            email = json["email"];
-            if(name != "" && email != "") {
-                $('.greeting').text('Hey ' + name + '!');
+function SubForm (){
+    $.ajax({
+        url: 'http://34.96.245.124:2999/user',
+        type: 'post',
+        data: $('#registrationForm').serialize(),
+        success: function(){
+            alert("worked");
+            $('.greeting').text('Hey ' + name + '!');
                 document.getElementById("login-section").style.display= "none";
                 document.getElementById("main-section").style.display= "block";
-            } else {
-                alert("wrong submission");
-            }
-        });
-    }
+        }
+    });
 }
 
