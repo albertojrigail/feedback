@@ -129,17 +129,11 @@ function SubForm (){
         'name' : name,
         'email' : email,
     }
-    console.log("subForm()");
     $.ajax({
         url: 'http://34.96.245.124:2999/user',
         type: 'post',
         data: JSON.stringify(user),
-        success: function(){
-            alert("worked");
-            $('.greeting').text('Hey ' + name + '!');
-                document.getElementById("login-section").style.display= "none";
-                document.getElementById("main-section").style.display= "block";
-        }
     });
+    window.location.replace("http://34.96.245.124:2999/?uid" + userId + '&pid=' + problemId );
 }
 
