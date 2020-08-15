@@ -93,8 +93,8 @@ function runit() {
 } 
 
 // 4. Login configuration
-// run on start
-// First check if it's registered
+
+// On start: check if it's registered
 if(userId != "") {
     $.get( 'http://34.96.245.124:2999/user/' + userId, function(data ) {
         // need to register first
@@ -114,8 +114,15 @@ if(userId != "") {
             document.getElementById("main-section").style.display= "block";
         }
     })
-        // .fail(() => {
-        //     document.getElementById("login-section").style.display= "none";
-        //     document.getElementById("main-section").style.display= "block";
-        // })
+        .fail(() => {
+            document.getElementById("login-section").style.display= "none";
+            document.getElementById("main-section").style.display= "block";
+        });
 }
+
+
+// On login button pressed: register user
+function register() {
+    
+}
+
