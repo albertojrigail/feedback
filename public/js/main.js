@@ -120,7 +120,7 @@ if(userId != "") {
         });
 }
 
-
+// register user
 $('#myForm').submit(function(e){
     e.preventDefault();
     $.ajax({
@@ -132,5 +132,25 @@ $('#myForm').submit(function(e){
         }
     });
 });
+
+// submit solution
+function submitSolution() {
+    var solutionText = editor.getValue();
+    var solutionList = solution.split('\n');
+    data = {
+        'email' : email,
+        'id' : userId,
+        'pid' : problemId,
+        'solution' : solutionList,
+    }
+    $.ajax({
+        url:'/user',
+        type:'post',
+        data: data,
+        success:function(){
+            window.location.replace("http://34.96.245.124:2999/pages/tutorial/tutorial.html");
+        }
+    });
+}
 
 
