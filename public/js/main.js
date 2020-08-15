@@ -124,7 +124,7 @@ if(userId != "") {
 $('#myForm').submit(function(e){
     e.preventDefault();
     $.ajax({
-        url:'/users',
+        url:'/user',
         type:'post',
         data:$('#myForm').serialize(),
         success:function(){
