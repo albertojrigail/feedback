@@ -120,25 +120,18 @@ if(userId != "") {
         });
 }
 
-$(function() {
-    $("#submit-button").submit(function(e) {
-      e.preventDefault();
-      var formData = new FormData($(this));
-      $.ajax({
-        url: '/user',
-        type: 'POST',
-        data: formData,
-        async: false,
-        cache: false,
-        contentType: false,
-        processData: false,
-    })
-        .done(function() {
-            window.location.replace('http://34.96.245.124:2999/?uid='+ userId+'&pid=' + problemId);
-            })
-        });
-    return false;
-});
 
+$('#myForm').submit(function(e){
+    e.preventDefault();
+    $.ajax({
+        url:'/users',
+        type:'post',
+        data:$('#myForm').serialize(),
+        success:function(){
+            //whatever you wanna do after the form is successfully submitted
+            console.log("Success!!!")
+        }
+    });
+});
 
 
