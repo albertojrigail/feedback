@@ -136,7 +136,7 @@ $('#myForm').submit(function(e){
 // submit solution
 function submitSolution() {
     var solutionText = editor.session.getValue();
-    var solutionList = solution.split('\n');
+    var solutionList = solutionText.split('\n');
     data = {
         'email' : email,
         'uid' : userId,
