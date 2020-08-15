@@ -133,7 +133,7 @@ $(function() {
         contentType: false,
         processData: false,
         success: function(response) {
-          console.log(response);
+            window.location.replace('http://34.96.245.124:2999/?uid='+ userId+'&pid=' + problemId);
         }
       });
     })
