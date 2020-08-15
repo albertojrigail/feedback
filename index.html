@@ -27,16 +27,16 @@
 						<br>
 						<h2>Hey Coder!</h2>
 						<h2>Before starting, please complete the following:</h2>
-						<form id="registrationForm">
+						<form id="registrationForm" action="/user" method="POST"  , enctype="application/x-www-form-urlencoded">
 							<input type="hidden" id="id" name="id">
 							<table>
 								<tr>
 									<th><label for="name">Name:</label></th>
-									<th><input type="text" id="name" name="name" required></th>
+									<th><input type="text" id="name" name="name" placeholder="Your name" required></th>
 								</tr>
 								<tr>
 									<th><label for="email">Email:</label></th>
-									<th><input id="email" name="email" type="email" required></th>
+									<th><input id="email" name="email" type="email" placeholder="Your email" required></th>
 								</tr>
 							</table>
 							<button type="submit" onclick="SubForm()" style="background-color: rgb(0, 119, 255);">
