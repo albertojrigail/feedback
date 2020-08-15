@@ -109,7 +109,7 @@ if(userId != "") {
             name = json["name"];
             email = json["email"];
             $('.greeting').text('Hey ' + name + '!');
-            $('.useremail').value(email);
+            document.getElementById("useremail").value = email;
             document.getElementById("login-section").style.display= "none";
             document.getElementById("main-section").style.display= "block";
         }
