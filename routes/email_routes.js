@@ -15,27 +15,15 @@ module.exports = function(app, db) {
           text: 'Thanks',
           html: `<p>Hi ${name}, <br> We appreciate you sending this solution. We are attaching it for your records. <br><br>All the best,<p>`,
         };
-        //ES6
         sgMail
-          .send(msg)
-          .then(() => {}, error => {
-            console.error(error);
-        
-            if (error.response) {
-              console.error(error.response.body)
-            }
-          });
-        //ES8
-        (async () => {
-          try {
-            await sgMail.send(msg);
-          } catch (error) {
-            console.error(error);
-        
-            if (error.response) {
-              console.error(error.response.body)
-            }
+        .send(msg, (error, result) => {
+          if (error) {
+            // Do something with the error
           }
-        })();
+          else {
+            // Celebrate
+            res.send("Success!");
+          }
+        });
     });
 }
