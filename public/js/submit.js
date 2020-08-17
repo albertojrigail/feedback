@@ -80,8 +80,8 @@ async function createSnippet() {
             'Authorization': 'Basic ' + btoa(username + ":" + password)
         },
         success: function(data) {
-            const json = data.json();
-            return data["url"];
+            const json = JSON.parse(JSON.stringify(data));
+            return json["url"];
         }
     });
 
