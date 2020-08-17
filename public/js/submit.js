@@ -49,7 +49,7 @@ function yesSubmit() {
             });
 
             // go to feedback page
-            // window.location.replace("http://34.96.245.124:2999/pages/feedback/feedback.html");
+            window.open("http://34.96.245.124:2999/pages/feedback/feedback.html");
         }
     });
 }
@@ -59,39 +59,44 @@ function createSnippet() {
     // Get solution code
     const solution = editor.session.getValue();
     template = solution.split('\n');
+     // Set HTML for code snippet
+     let htmlCode = '<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=py&amp;skin=sunburst"></script>' + 
+     '<div style="margin:auto;"><pre class="prettyprint">';
+     template.forEach(line => {
+         htmlCode += line + '<br/>';
+     });
+     htmlCode += '</pre></div>';
 
-    // Set HTML for code snippet
-    let htmlCode = '<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=py&amp;skin=sunburst"></script>' + 
-    '<div style="margin:auto;"><pre class="prettyprint">';
-    template.forEach(line => {
-        htmlCode += line + '<br/>';
-    });
-    htmlCode += '</pre></div>';
-
-    // Set parameters for requesting snippets
-    const data = {
+    const json = {
         html: htmlCode,
-        css: "",
-        google_fonts: "Roboto"
-    }
-    
-    // Authentication
-    const API_ID = "ca2e9be6-9728-4f7b-a46c-1cdce4bc0676";
-    const API_KEY= "f32f2ad1-7ac7-48bc-8e51-4bab98348502";
-    
-    // Create an image by sending a POST to the API.
-    $.ajax({
-        url: 'https://hcti.io/v1/image',
-        type: 'post',
-        data: JSON.stringify(data),
-        username: API_ID,
-        password: API_KEY,
-        dataType: 'json',
-        success: function(data) {
-            let imageUrl = JSON.parse(data)["url"];
-            return imageUrl;
+        css: ""
+    };
+    const username = "ca2e9be6-9728-4f7b-a46c-1cdce4bc0676";
+    const password = "f32f2ad1-7ac7-48bc-8e51-4bab98348502";
+      
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(json),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic ' + btoa(username + ":" + password)
         }
-    });
+    }
+      
+    fetch('https://hcti.io/v1/image', options)
+        .then(res => {
+          if (res.ok) {
+            const json = res.json();
+            return json['url'];
+          } else {
+            return Promise.reject(res.status);
+          }
+        })
+        .then(data => {
+          // Image URL is available here
+          console.log(data.url)
+        })
+        .catch(err => console.error(err));
 }
 
 //     var solutionText = editor.session.getValue();
