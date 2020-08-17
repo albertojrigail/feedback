@@ -12,12 +12,10 @@ function noSubmit() {
 }
 
 // submit solution and then go to feedback page
-function yesSubmit() {
+async function yesSubmit() {
     // create code snippet from solution
-    imageUrl = createSnippet();
+    imageUrl = await createSnippet();
     console.log(imageUrl);
-    console.log(name);
-    console.log(email);
 
     const solutionData = {
         "solution" : editor.session.getValue(),
@@ -30,11 +28,9 @@ function yesSubmit() {
         url:'/solution',
         type:'post',
         data: solutionData,
+
         success:function(){
-            // send email to problem user
-            let name = "Alberto";
-            let email = "ajrc@princeton.edu";
-            // image link
+            // send email
             const emailData = {
                 email: email,
                 name: name,
@@ -49,13 +45,13 @@ function yesSubmit() {
             });
 
             // go to feedback page
-            window.open("http://34.96.245.124:2999/pages/feedback/feedback.html");
+            // window.open("http://34.96.245.124:2999/pages/feedback/feedback.html");
         }
     });
 }
 
 // Creates code snippet from editor code
-function createSnippet() {
+async function createSnippet() {
     // Get solution code
     const solution = editor.session.getValue();
     template = solution.split('\n');
@@ -84,7 +80,8 @@ function createSnippet() {
             'Authorization': 'Basic ' + btoa(username + ":" + password)
         },
         success: function(data) {
-            return JSON.parse(data)["url"];
+            const json = data.json();
+            return data["url"];
         }
     });
 
