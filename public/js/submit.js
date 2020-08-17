@@ -73,31 +73,21 @@ function createSnippet() {
     };
     const username = "ca2e9be6-9728-4f7b-a46c-1cdce4bc0676";
     const password = "f32f2ad1-7ac7-48bc-8e51-4bab98348502";
-      
-    const options = {
-        method: 'POST',
-        body: JSON.stringify(json),
+
+    $.ajax({
+        url: 'https://hcti.io/v1/image',
+        type: 'post',
+        data: JSON.stringify(emailData),
+        dataType: 'json',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Basic ' + btoa(username + ":" + password)
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic ' + btoa(username + ":" + password)
+        },
+        success: function(data) {
+            return JSON.parse(data)["url"];
         }
-    }
-      
-    fetch('https://hcti.io/v1/image', options)
-    .then(res => {
-        if (res.ok) {
-        const json = res.json();
-        return json['url'];
-        } else {
-        return Promise.reject(res.status);
-        }
-    })
-    .then(data => {
-        // Image URL is available here
-        console.log(data.url);
-        return data.url;
-    })
-    .catch(err => console.error(err));
+    });
+
 }
 
 //     var solutionText = editor.session.getValue();
