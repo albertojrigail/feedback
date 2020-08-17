@@ -80,19 +80,17 @@ function createSnippet() {
     const API_KEY= "f32f2ad1-7ac7-48bc-8e51-4bab98348502";
     
     // Create an image by sending a POST to the API.
-    request.post(
-        {
-            url:'https://hcti.io/v1/image',
-            form: data,
-            auth: {
-                user: API_ID,
-                pass: API_KEY,
-            }
-        }, function(error,response,newBody) {
-            let imageUrl = JSON.parse(newBody)["url"];
+    $.ajax({
+        url: 'https://hcti.io/v1/image',
+        type: 'post',
+        data: JSON.stringify(data),
+        auth: {user: API_ID, pass: API_KEY},
+        dataType: 'json',
+        success: function(data) {
+            let imageUrl = JSON.parse(data)["url"];
             return imageUrl;
         }
-    );
+    });
 }
 
 //     var solutionText = editor.session.getValue();
