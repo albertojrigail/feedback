@@ -17,8 +17,9 @@ async function yesSubmit() {
     imageUrl = await createSnippet();
     console.log(imageUrl);
 
+    solution = editor.session.getValue().split('\n');
     const solutionData = {
-        "solution" : editor.session.getValue(),
+        "solution" : solution,
         "uid" : userId,
         "pid" : problemId,
     }
@@ -41,9 +42,7 @@ async function yesSubmit() {
             $.ajax({
                 url: '/emailsubmit',
                 type: 'get',
-                data: JSON.stringify(emailData),
-                dataType: 'json',
-                contentType: "application/json; charset=utf-8",
+                data: emailData,
                 success: function() {
                     console.log("email submitted!!!");
                 }
