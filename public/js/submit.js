@@ -68,6 +68,7 @@ function yesSubmit() {
                         name: name,
                         url: imageUrl,
                     }
+                    console.log(emailData);
                     $.ajax({
                         url: '/emailsubmit',
                         type: 'get',
