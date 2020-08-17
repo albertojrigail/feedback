@@ -13,6 +13,7 @@ function noSubmit() {
 
 // submit solution and then go to feedback page
 function yesSubmit() {
+
      // get user information
      $.get( 'http://34.96.245.124:2999/user/' + userId, function(data ) {
         // need to register first
@@ -24,15 +25,13 @@ function yesSubmit() {
     // create code snippet from solution
     imageUrl = createSnippet();
 
-    // send email
+    // post solution in database
     $.ajax({
         url:'/solution',
         type:'post',
         data: data,
         success:function(){
             // send email to problem user
-            let url = "http://34.96.245.124:2999/emailsubmit";
-            url = "localhost:2999/emailsubmit";
             let name = "Alberto";
             let email = "ajrc@princeton.edu";
             // image link
@@ -41,9 +40,8 @@ function yesSubmit() {
                 name: name,
                 url: imageUrl,
             }
-        
             $.ajax({
-                url: url,
+                url: '/emailsubmit',
                 type: 'post',
                 data: JSON.stringify(msg),
                 dataType: 'json',
@@ -51,7 +49,7 @@ function yesSubmit() {
             });
 
             // go to feedback page
-            window.location.replace("http://34.96.245.124:2999/pages/feedback/feedback.html");
+            // window.location.replace("http://34.96.245.124:2999/pages/feedback/feedback.html");
         }
     });
 }
