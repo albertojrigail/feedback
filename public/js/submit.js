@@ -77,7 +77,7 @@ function createSnippet() {
     $.ajax({
         url: 'https://hcti.io/v1/image',
         type: 'post',
-        data: JSON.stringify(emailData),
+        data: JSON.stringify(json),
         dataType: 'json',
         headers: {
             'Content-Type': 'application/json',
