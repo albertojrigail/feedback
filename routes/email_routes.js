@@ -5,16 +5,35 @@ const sgMail = require('@sendgrid/mail');
 module.exports = function(app, db) {
     // post user
     app.get('/emailsubmit', (req, res) => {
+        // query inputs
         const name = req.body.name;
         const email = req.body.email;
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        const msg = {
+        const url = req.body.url;
+
+        // validate inputs
+        if(name=== "" || email === "" || url === "") {
+          res.send("Invalid inputs.");
+        }
+
+        // html email template
+        var html = 
+        `<p>Hi ${name},<br>
+        We appreciate you sending this solution. Refer to this link to view a snippet of your solution:<br>
+        <a href="${url}">your solution</a>
+        <br><br>
+        All the best,<p>`,
+        
+        // body
+        var msg = {
           to: email,
           from: 'helpnemobot@gmail.com', // Use the email address or domain you verified above
           subject: 'Thank you for your solution',
           text: 'Thanks',
-          html: `<p>Hi ${name}, <br> We appreciate you sending this solution. We are attaching it for your records. <br><br>All the best,<p>`,
+          html: html,
         };
+
+        // send email
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         sgMail
         .send(msg, (error, result) => {
           if (error) {
@@ -22,8 +41,6 @@ module.exports = function(app, db) {
             res.send("Failure...");
           }
           else {
-            // Celebrate
-            console.log("email sent");
             res.send("Success!");
           }
         });

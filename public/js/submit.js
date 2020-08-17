@@ -13,22 +13,86 @@ function noSubmit() {
 
 // submit solution and then go to feedback page
 function yesSubmit() {
-    let url = "http://34.96.245.124:2999/emailsubmit";
-    let name = "Alberto";
-    let email = "ajrc@princeton.edu";
-    // image link
-    let msg = {
-        email: email,
-        name: name,
-    }
-
-    $.ajax({
-        url: url,
-        type: 'post',
-        data: JSON.stringify(msg),
-        dataType: 'json',
-        contentType: "application/json; charset=utf-8",
+     // get user information
+     $.get( 'http://34.96.245.124:2999/user/' + userId, function(data ) {
+        // need to register first
+        let json = JSON.parse(JSON.stringify(data));
+        name = json["name"];
+        email = json["email"];
     });
+
+    // create code snippet from solution
+    imageUrl = createSnippet();
+
+    // send email
+    $.ajax({
+        url:'/solution',
+        type:'post',
+        data: data,
+        success:function(){
+            // send email to problem user
+            let url = "http://34.96.245.124:2999/emailsubmit";
+            url = "localhost:2999/emailsubmit";
+            let name = "Alberto";
+            let email = "ajrc@princeton.edu";
+            // image link
+            let msg = {
+                email: email,
+                name: name,
+                url: imageUrl,
+            }
+        
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: JSON.stringify(msg),
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+            });
+
+            // go to feedback page
+            window.location.replace("http://34.96.245.124:2999/pages/feedback/feedback.html");
+        }
+    });
+}
+
+// creates code snippet from editor code
+function createSnippet() {
+    const solution = editor.session.getValue();
+    // create snippet from code
+    // Set HTML for code snippet
+    let htmlCode = '<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=py&amp;skin=sunburst"></script>' + 
+    '<div style="margin:auto;"><pre class="prettyprint">';
+    solution.forEach(line => {
+        htmlCode += line + '<br/>';
+    });
+    htmlCode += '</pre></div>';
+
+    // Set parameters for requesting snippets
+    const data = {
+        html: htmlCode,
+        css: "",
+        google_fonts: "Roboto"
+    }
+    
+    // Authentication
+    const API_ID = "ca2e9be6-9728-4f7b-a46c-1cdce4bc0676";
+    const API_KEY= "f32f2ad1-7ac7-48bc-8e51-4bab98348502";
+    
+    // Create an image by sending a POST to the API.
+    request.post(
+        {
+            url:'https://hcti.io/v1/image',
+            form: data,
+            auth: {
+                user: API_ID,
+                pass: API_KEY,
+            }
+        }, function(error,response,newBody) {
+            let imageUrl = JSON.parse(newBody)["url"];
+            return imageUrl;
+        }
+    );
 }
 
 //     var solutionText = editor.session.getValue();
@@ -41,12 +105,6 @@ function yesSubmit() {
 //         'solution' : solutionList,
 //     }
     
-//     html = 
-//     `<html>
-//         <h2>Hi ${name}</h2><br>
-//         <p>Thank you for your solution<p>
-//         <br></br>
-//     </html>`;
 
 //     var data = JSON.stringify({
 //         "personalizations": [
@@ -84,23 +142,6 @@ function yesSubmit() {
 //     xhr.setRequestHeader("accept", "application/json");
 //     xhr.send(data);
 
-//     // get user information
-//     // $.get( 'http://34.96.245.124:2999/user/' + userId, function(data ) {
-//     //     // need to register first
-//     //     let json = JSON.parse(JSON.stringify(data));
-//     //     name = json["name"];
-//     //     email = json["email"];
-//     // });
-//     // $.ajax({
-//     //     url:'/solution',
-//     //     type:'post',
-//     //     data: data,
-//     //     success:function(){
-//     //         // send email to problem user
-//     //         // go to feedback page
-//     //         // window.location.replace("http://34.96.245.124:2999/pages/feedback/feedback.html");
-//     //     }
-//     // });
 // }
 
 // function email() {
