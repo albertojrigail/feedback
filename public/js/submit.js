@@ -42,7 +42,7 @@ function yesSubmit() {
             }
             $.ajax({
                 url: '/emailsubmit',
-                type: 'post',
+                type: 'get',
                 data: JSON.stringify(emailData),
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",
@@ -84,7 +84,8 @@ function createSnippet() {
         url: 'https://hcti.io/v1/image',
         type: 'post',
         data: JSON.stringify(data),
-        auth: {user: API_ID, pass: API_KEY},
+        username: API_ID,
+        password: API_KEY,
         dataType: 'json',
         success: function(data) {
             let imageUrl = JSON.parse(data)["url"];
