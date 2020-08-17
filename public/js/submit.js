@@ -14,7 +14,6 @@ function noSubmit() {
 // submit solution and then go to feedback page
 function yesSubmit() {
     let url = "http://34.96.245.124:2999/emailsubmit";
-    url = "localhost:2999/emailsubmit";
     let name = "Alberto";
     let email = "ajrc@princeton.edu";
     // image link
