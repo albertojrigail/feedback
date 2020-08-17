@@ -12,58 +12,16 @@ function noSubmit() {
 }
 
 // submit solution and then go to feedback page
-async function yesSubmit() {
-    // create code snippet from solution
-    imageUrl = await createSnippet();
-    console.log(imageUrl);
+function yesSubmit() {
+    let imageUrl = "";
 
-    solution = editor.session.getValue().split('\n');
-    const solutionData = {
-        "solution" : solution,
-        "uid" : userId,
-        "pid" : problemId,
-    }
 
-    // post solution in database
-    $.ajax({
-        url:'/solution',
-        type:'post',
-        data: solutionData,
-
-        success:function(){
-            console.log("Solution posted!");
-
-            // send email
-            const emailData = {
-                email: email,
-                name: name,
-                url: imageUrl,
-            }
-            $.ajax({
-                url: '/emailsubmit',
-                type: 'get',
-                data: emailData,
-                success: function(data) {
-                    console.log(data);
-                    console.log("email submitted!!!");
-                }
-            });
-
-            // go to feedback page
-            // window.open("http://34.96.245.124:2999/pages/feedback/feedback.html");
-        }
-    });
-}
-
-// Creates code snippet from editor code
-async function createSnippet() {
     // Get solution code
-    const solution = editor.session.getValue();
-    template = solution.split('\n');
+    const solution = editor.session.getValue().split('\n');
      // Set HTML for code snippet
      let htmlCode = '<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=py&amp;skin=sunburst"></script>' + 
      '<div style="margin:auto;"><pre class="prettyprint">';
-     template.forEach(line => {
+     solution.forEach(line => {
          htmlCode += line + '<br/>';
      });
      htmlCode += '</pre></div>';
@@ -85,15 +43,49 @@ async function createSnippet() {
             'Authorization': 'Basic ' + btoa(username + ":" + password)
         },
         success: function(data) {
+            // image url
             const json = JSON.parse(JSON.stringify(data));
-            console.log("Image snippet:");
-            console.log(data);
-            console.log(json);
-            return json["url"];
+            imageUrl = json["url"];
+
+            // solution data
+            const solutionData = {
+                "solution" : solution,
+                "uid" : userId,
+                "pid" : problemId,
+            }
+        
+            // post solution in database
+            $.ajax({
+                url:'/solution',
+                type:'post',
+                data: solutionData,
+        
+                success:function(){
+
+                    // send email
+                    const emailData = {
+                        email: email,
+                        name: name,
+                        url: imageUrl,
+                    }
+                    $.ajax({
+                        url: '/emailsubmit',
+                        type: 'get',
+                        data: emailData,
+                        success: function(data) {
+                            console.log(data);
+                            console.log("email submitted!");
+                        }
+                    });
+        
+                    // go to feedback page
+                    window.open("http://34.96.245.124:2999/pages/feedback/feedback.html");
+                }
+            });
         }
     });
-
 }
+
 
 //     var solutionText = editor.session.getValue();
 //     var solutionList = solutionText.split('\n');
