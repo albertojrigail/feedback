@@ -23,8 +23,8 @@ module.exports = function(app, db) {
           <br>
           <p>Hi ${name},<br>
           <br>
-          We appreciate you sending this solution. Refer to this link to view a snippet of your answer:<br>
-          <a href="${url}">your solution</a>
+          We appreciate you sending this solution. For your records, this is a snippet of your answer: <br>
+          <img src ="${url}">
           <br><br><br>
           All the very best,<p>
           <strong>Nemo Bot Team🤖</strong>
