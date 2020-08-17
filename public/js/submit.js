@@ -43,7 +43,8 @@ async function yesSubmit() {
                 url: '/emailsubmit',
                 type: 'get',
                 data: emailData,
-                success: function() {
+                success: function(data) {
+                    console.log(data);
                     console.log("email submitted!!!");
                 }
             });
@@ -86,7 +87,8 @@ async function createSnippet() {
         success: function(data) {
             const json = JSON.parse(JSON.stringify(data));
             console.log("Image snippet:");
-            console.log("data");
+            console.log(data);
+            console.log(json);
             return json["url"];
         }
     });
