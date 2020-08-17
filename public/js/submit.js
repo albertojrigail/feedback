@@ -13,29 +13,29 @@ function noSubmit() {
 
 // submit solution and then go to feedback page
 function yesSubmit() {
-
-     // get user information
-     $.get( 'http://34.96.245.124:2999/user/' + userId, function(data ) {
-        // need to register first
-        let json = JSON.parse(JSON.stringify(data));
-        name = json["name"];
-        email = json["email"];
-    });
-
     // create code snippet from solution
     imageUrl = createSnippet();
+    console.log(imageUrl);
+    console.log(name);
+    console.log(email);
+
+    const solutionData = {
+        "solution" : editor.session.getValue(),
+        "uid" : userId,
+        "pid" : problemId,
+    }
 
     // post solution in database
     $.ajax({
         url:'/solution',
         type:'post',
-        data: data,
+        data: solutionData,
         success:function(){
             // send email to problem user
             let name = "Alberto";
             let email = "ajrc@princeton.edu";
             // image link
-            let msg = {
+            const emailData = {
                 email: email,
                 name: name,
                 url: imageUrl,
@@ -43,7 +43,7 @@ function yesSubmit() {
             $.ajax({
                 url: '/emailsubmit',
                 type: 'post',
-                data: JSON.stringify(msg),
+                data: JSON.stringify(emailData),
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",
             });

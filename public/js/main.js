@@ -9,6 +9,7 @@
 var editor= ace.edit('ace-editorid'); // code editor
 var searchParams = new URLSearchParams(window.location.search); // parameters
 var userId = ""; // user id
+var problemId = "";
 var name =""; // user name
 var email = ""; // user email
 
@@ -29,7 +30,7 @@ if(searchParams.has('uid')) {
 }
 // problem id
 if(searchParams.has('pid')) {
-    var problemId = searchParams.get('pid');
+    problemId = searchParams.get('pid');
     $.get( 'http://34.96.245.124:2999/problem/' + problemId, function( data ) {
         // Query data
         let json = JSON.parse(JSON.stringify(data));
@@ -122,6 +123,8 @@ if(userId != "") {
 
 // register user
 $('#myForm').submit(function(e){
+    name = document.getElementById("name").value;
+    email = document.getElementById("email").value;
     e.preventDefault();
     $.ajax({
         url:'/user',
