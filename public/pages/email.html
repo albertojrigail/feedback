@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <script>
+            function email() {
+                var name="Alberto";
+                var email = "ajrc@princeton.edu";
+                let html = "<html><head></head><body><img='/assets/nemo_bot_logo.png' style='height:100px;'></body> Thank you for your solution.<br> We appreciate you being active in this app. We have attached your submission for your records.<br><br>All the best,</html>";
+                var data = JSON.stringify({
+                    "personalizations": [
+                        {
+                            "to": [
+                                {
+                                    "email": email,
+                                }
+                            ],
+                            "subject": "Thank you for your Coding Submission"
+                        }
+                    ],
+                    "from": {
+                        "email": "helpnemobot@gmail.com"
+                    },
+                    "content": [
+                        {
+                            "type": "text/html",
+                            "value": html,
+                        }
+                    ]
+                });
+        
+                var xhr = new XMLHttpRequest();
+                xhr.withCredentials = true;
+                xhr.addEventListener("readystatechange", function () {
+                    if (this.readyState === this.DONE) {
+                        console.log(this.responseText);
+                    }
+                });
+                xhr.open("POST", "https://rapidprod-sendgrid-v1.p.rapidapi.com/mail/send");
+                xhr.setRequestHeader("x-rapidapi-host", "rapidprod-sendgrid-v1.p.rapidapi.com");
+                xhr.setRequestHeader("x-rapidapi-key", "fd4045971bmshb20f89cb73be8f1p1836c3jsnb097b061acc3");
+                xhr.setRequestHeader("content-type", "application/json");
+                xhr.setRequestHeader("accept", "application/json");
+                xhr.send(data);
+            }
+            </script>
+    </head>
+
+
+    <body>
+        <input type="button" value="Send Email" onclick="email();">
+    </body>
+
+</html>
+
+

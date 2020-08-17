@@ -28,3 +28,26 @@ textarea {
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px #999;
 }
+
+.popup {
+    background: rgba(0,0,0,0.4);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    display: none;
+}
+
+.popup-contents {
+    height: 50%;
+    width: 50%;
+    background: white;
+    border-radius:5px;
+    margin: auto;
+    top: 25%;
+    position:relative;
+    text-align: center;
+}

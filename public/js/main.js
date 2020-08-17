@@ -132,24 +132,3 @@ $('#myForm').submit(function(e){
         }
     });
 });
-
-// submit solution
-function submitSolution() {
-    var solutionText = editor.session.getValue();
-    var solutionList = solutionText.split('\n');
-    data = {
-        'uid' : userId,
-        'pid' : problemId,
-        'solution' : solutionList,
-    }
-    $.ajax({
-        url:'/solution',
-        type:'post',
-        data: data,
-        success:function(){
-            window.location.replace("http://34.96.245.124:2999/pages/feedback/feedback.html");
-        }
-    });
-}
-
-
