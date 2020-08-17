@@ -30,6 +30,8 @@ async function yesSubmit() {
         data: solutionData,
 
         success:function(){
+            console.log("Solution posted!");
+
             // send email
             const emailData = {
                 email: email,
@@ -42,6 +44,9 @@ async function yesSubmit() {
                 data: JSON.stringify(emailData),
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",
+                success: function() {
+                    console.log("email submitted!!!");
+                }
             });
 
             // go to feedback page
@@ -81,6 +86,8 @@ async function createSnippet() {
         },
         success: function(data) {
             const json = JSON.parse(JSON.stringify(data));
+            console.log("Image snippet:");
+            console.log("data");
             return json["url"];
         }
     });
