@@ -84,19 +84,20 @@ function createSnippet() {
     }
       
     fetch('https://hcti.io/v1/image', options)
-        .then(res => {
-          if (res.ok) {
-            const json = res.json();
-            return json['url'];
-          } else {
-            return Promise.reject(res.status);
-          }
-        })
-        .then(data => {
-          // Image URL is available here
-          console.log(data.url)
-        })
-        .catch(err => console.error(err));
+    .then(res => {
+        if (res.ok) {
+        const json = res.json();
+        return json['url'];
+        } else {
+        return Promise.reject(res.status);
+        }
+    })
+    .then(data => {
+        // Image URL is available here
+        console.log(data.url);
+        return data.url;
+    })
+    .catch(err => console.error(err));
 }
 
 //     var solutionText = editor.session.getValue();
