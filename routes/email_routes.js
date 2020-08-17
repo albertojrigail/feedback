@@ -4,7 +4,7 @@ const sgMail = require('@sendgrid/mail');
 
 module.exports = function(app, db) {
     // post user
-    app.post('/emailsubmit', (req, res) => {
+    app.get('/emailsubmit', (req, res) => {
         const name = req.body.name;
         const email = req.body.email;
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -19,9 +19,11 @@ module.exports = function(app, db) {
         .send(msg, (error, result) => {
           if (error) {
             // Do something with the error
+            res.send("Failure...");
           }
           else {
             // Celebrate
+            console.log("email sent");
             res.send("Success!");
           }
         });
