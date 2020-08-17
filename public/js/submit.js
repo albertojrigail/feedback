@@ -54,14 +54,16 @@ function yesSubmit() {
     });
 }
 
-// creates code snippet from editor code
+// Creates code snippet from editor code
 function createSnippet() {
+    // Get solution code
     const solution = editor.session.getValue();
-    // create snippet from code
+    template = solution.split('\n');
+
     // Set HTML for code snippet
     let htmlCode = '<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=py&amp;skin=sunburst"></script>' + 
     '<div style="margin:auto;"><pre class="prettyprint">';
-    solution.forEach(line => {
+    template.forEach(line => {
         htmlCode += line + '<br/>';
     });
     htmlCode += '</pre></div>';
